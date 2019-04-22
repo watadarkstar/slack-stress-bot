@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@slack/events-api": "^2.2.0",
+    "@slack/interactive-messages": "^1.1.1",
     "@slack/web-api": "^5.0.1",
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",

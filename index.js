@@ -18,8 +18,8 @@ const token = process.env.SLACK_AUTH_TOKEN;
 // Initialize
 const web = new WebClient(token);
 
-// conversationId
-const conversationId = "#general";
+// channel
+const channel = "#stress-checkin";
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -42,7 +42,7 @@ app.post("/", async (req, res) => {
         ]
       }
     ],
-    channel: conversationId
+    channel
   };
 
   const message2 = {
@@ -69,12 +69,17 @@ app.post("/", async (req, res) => {
         ]
       }
     ],
-    channel: conversationId
+    channel
   };
+
+  // create a channel
+  const result0 = await web.channels
+    .join({ name: channel })
+    .catch(e => console.error(e));
 
   // Post a message to the channel, and await the result.
   // Find more arguments and details of the response: https://api.slack.com/methods/chat.postMessage
-  const result = await web.chat
+  const result1 = await web.chat
     .postMessage(message1)
     .catch(e => console.error(e));
 
@@ -84,6 +89,6 @@ app.post("/", async (req, res) => {
 
   // The result contains an identifier for the message, `ts`.
   console.log(
-    `Successfully send message ${result.ts} in conversation ${conversationId}`
+    `Successfully send message ${result1.ts} in conversation ${channel}`
   );
 });
